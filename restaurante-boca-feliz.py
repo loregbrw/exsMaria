@@ -10,16 +10,24 @@ cardapio = {
 
 pedido = {1: "x-burguer", 2: "x-salada", 3: "x-bacon", 4: "x-egg", 5: "x-tudo"}
 
-op = 1
+opcao = 1
 
-for food, ingredients in cardapio.items():
-     print(f"{op}. {food}: {ingredients}")
-     op += 1
+concluido = True
 
-while op != 0:
-    op = int(input("O que deseja pedir (0 para sair)?"))
-    if op < 1 or op > 5:
-         print("Item não localizado no cardápio")
-    else:
-         for i in cardapio.get(pedido[op]):
-         
+for hamburguers, ingredientes in cardapio.items():
+     print(f"{opcao}. {hamburguers}: {ingredientes}")
+     opcao += 1
+
+while opcao != 0:
+     opcao = int(input("O que deseja pedir (0 para sair)? "))
+     if opcao >= 1 or opcao <= 5:
+         concluido = True
+         for i in cardapio.get(pedido[opcao]):
+               if estoque[i] > 0:
+                    estoque[i] -= 1
+               else:
+                    print(f"Infelizmente acabou o {i}")
+                    concluido = False
+     if concluido == True:
+          print(f"um {pedido[opcao]} saindo no capricho!!!")
+
